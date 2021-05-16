@@ -8,10 +8,21 @@ It is based on [`rust-cpuid`](https://github.com/gz/rust-cpuid) library.
 
 Use the [ark.intel.com](ark.intel.com) database to list all Intel CPUs that have the SGX feature.
 
-## Example
+## Installation
 
 ```
-$ cargo run
+cargo install sgx-cpu
+```
+
+Usage
+```
+sgx-cpu
+```
+
+## Examples
+
+```
+$ sgx-cpu
 SGX CPU information
 
 # CPU features
@@ -30,7 +41,7 @@ family 6 (extended 0)
 getting details using verbose mode
 
 ```
-$ cargo run -- -v
+$ sgx-cpu -v
 SGX CPU information
 
 # CPU features
