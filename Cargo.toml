@@ -16,3 +16,4 @@ name = "sgx-cpu"
 [dependencies]
 raw-cpuid = "9"
 structopt = "0.3"
+console = "0.14"

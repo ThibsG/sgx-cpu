@@ -1,3 +1,4 @@
+use console::{Emoji, Style};
 use raw_cpuid::{CpuId, SgxSectionInfo};
 use std::fmt;
 
@@ -35,22 +36,58 @@ impl fmt::Display for SgxCpuInfo {
             feature_info.family_id(),
             feature_info.extended_family_id()
         )?;
-        writeln!(f, "{} SMX support", emoji(feature_info.has_smx()))?;
+        writeln!(
+            f,
+            "{}  SMX support",
+            Emoji(&emoji(feature_info.has_smx()), "")
+        )?;
 
         writeln!(f, "\n# Intel SGX capabilities")?;
         let extended_features = self
             .0
             .get_extended_feature_info()
             .expect("Cannot get extended features information");
-        writeln!(f, "{} SGX availability", emoji(extended_features.has_sgx()))?;
         writeln!(
             f,
-            "{} SGX launch control configuration",
-            emoji(extended_features.has_sgx_lc())
+            "{}  SGX availability",
+            Emoji(&emoji(extended_features.has_sgx()), "")
+        )?;
+        writeln!(
+            f,
+            "{}  SGX FLC (Flexible Launch Control)",
+            Emoji(&emoji(extended_features.has_sgx_lc()), "")
         )?;
         let sgx_info = self.0.get_sgx_info().expect("Cannot get SGX information");
-        writeln!(f, "{} SGX 1 support", emoji(sgx_info.has_sgx1()))?;
-        write!(f, "{} SGX 2 support", emoji(sgx_info.has_sgx2()))?;
+        writeln!(
+            f,
+            "{}  SGX 1 support",
+            Emoji(&emoji(sgx_info.has_sgx1()), "")
+        )?;
+        write!(
+            f,
+            "{}  SGX 2 support",
+            Emoji(&emoji(sgx_info.has_sgx2()), "")
+        )?;
+
+        // FLC disclaimer
+        if extended_features.has_sgx_lc() {
+            let yellow = Style::new().yellow();
+            writeln!(
+                f,
+                "\n\n{}   {}",
+                Emoji("⚠️", ""),
+                yellow.apply_to("Warning !")
+            )?;
+            writeln!(
+                f,
+                "This CPU does not have FLC feature, so it does not support DCAP."
+            )?;
+            writeln!(
+                f,
+                "This CPU will not be able to run SGX using in-kernel SGX driver from Linux (starting from kernel 5.11)."
+            )?;
+            write!(f, "You must use the regular SGX driver")?;
+        }
         Ok(())
     }
 }
@@ -87,7 +124,11 @@ impl fmt::Debug for SgxCpuInfo {
             .expect("Cannot get extended features information");
         writeln!(f, "{:#02x?}", extended_features)?;
         writeln!(f, "SGX available: {}", extended_features.has_sgx())?;
-        writeln!(f, "SGX launch control: {}", extended_features.has_sgx_lc())?;
+        writeln!(
+            f,
+            "SGX FLC (Flexible Launch Control): {}",
+            extended_features.has_sgx_lc()
+        )?;
 
         writeln!(f, "\n# Intel SGX capabilities")?;
         writeln!(f, "\n## Sub-leaf 0 (ECX=0)")?;
