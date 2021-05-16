@@ -8,7 +8,7 @@ It is based on [`rust-cpuid`](https://github.com/gz/rust-cpuid) library.
 
 Use the [ark.intel.com](ark.intel.com) database to list all Intel CPUs that have the SGX feature.
 
-[Build Status]: https://img.shields.io/github/workflow/status/ThibsG/sgx-cpu/CI/master
+[Build Status]: https://img.shields.io/github/workflow/status/ThibsG/sgx-cpu/Rust/master
 [actions]: https://github.com/ThibsG/sgx-cpu/actions?query=branch%3Amaster
 [Latest Version]: https://img.shields.io/crates/v/sgx-cpu.svg
 [crates.io]: https://crates.io/crates/sgx-cpu
