@@ -76,7 +76,7 @@ impl fmt::Display for SgxCpuInfo {
         )?;
 
         // FLC disclaimer
-        if extended_features.has_sgx_lc() {
+        if !extended_features.has_sgx_lc() {
             let yellow = Style::new().yellow();
             writeln!(
                 f,
