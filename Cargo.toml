@@ -4,6 +4,7 @@ version = "0.1.0"
 authors = ["Thibs G <thibsg@pm.me>"]
 edition = "2018"
 description = "sgx-cpu provides useful information about SGX support by your current CPU"
+license-file = "LICENSE"
 readme = "README.md"
 repository = "https://github.com/ThibsG/sgx-cpu"
 keywords = ["sgx-cpu", "sgx", "cpu", "cpuid", "intel"]
