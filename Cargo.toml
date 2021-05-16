@@ -1,9 +1,16 @@
 [package]
 name = "sgx-cpu"
 version = "0.1.0"
-authors = ["Thibaud Genty <thibaud.genty@cosmian.com>"]
+authors = ["Thibs G <thibsg@pm.me>"]
 edition = "2018"
+description = "sgx-cpu provides useful information about SGX support by your current CPU"
+readme = "README.md"
+repository = "https://github.com/ThibsG/sgx-cpu"
+keywords = ["sgx-cpu", "sgx", "cpu", "cpuid", "intel"]
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+path = "src/main.rs"
+name = "sgx-cpu"
 
 [dependencies]
+raw-cpuid = "9"
