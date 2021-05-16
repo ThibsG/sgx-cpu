@@ -10,6 +10,12 @@ impl SgxCpuInfo {
     }
 }
 
+impl Default for SgxCpuInfo {
+    fn default() -> Self {
+        SgxCpuInfo::new()
+    }
+}
+
 impl From<SgxCpuInfo> for CpuId {
     fn from(sgx_cpu_info: SgxCpuInfo) -> CpuId {
         sgx_cpu_info.0
