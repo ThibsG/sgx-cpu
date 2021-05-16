@@ -10,9 +10,9 @@ impl SgxCpuInfo {
     }
 }
 
-impl Into<CpuId> for SgxCpuInfo {
-    fn into(self) -> CpuId {
-        self.0
+impl From<SgxCpuInfo> for CpuId {
+    fn from(sgx_cpu_info: SgxCpuInfo) -> CpuId {
+        sgx_cpu_info.0
     }
 }
 
