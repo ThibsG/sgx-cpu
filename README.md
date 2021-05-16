@@ -10,7 +10,7 @@ Use the [ark.intel.com](ark.intel.com) database to list all Intel CPUs that have
 
 ## Example
 
-```bash
+```
 $ cargo run
 SGX CPU information
 
@@ -29,7 +29,8 @@ family 6 (extended 0)
 
 getting details using verbose mode
 
-```bash
+```
+$ cargo run -- -v
 SGX CPU information
 
 # CPU features
