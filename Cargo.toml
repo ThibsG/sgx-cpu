@@ -1,6 +1,6 @@
 [package]
 name = "sgx-cpu"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["Thibs G <thibsg@pm.me>"]
 edition = "2018"
 description = "sgx-cpu provides useful information about SGX support by your current CPU"
