@@ -50,7 +50,7 @@ impl fmt::Display for SgxCpuInfo {
         )?;
         let sgx_info = self.0.get_sgx_info().expect("Cannot get SGX information");
         writeln!(f, "{} SGX 1 support", emoji(sgx_info.has_sgx1()))?;
-        writeln!(f, "{} SGX 2 support", emoji(sgx_info.has_sgx2()))?;
+        write!(f, "{} SGX 2 support", emoji(sgx_info.has_sgx2()))?;
         Ok(())
     }
 }
@@ -108,10 +108,10 @@ impl fmt::Debug for SgxCpuInfo {
 
         writeln!(f, "\n## Sub-leaf 1 (ECX=1)")?;
         let (eax, ecx) = sgx_info.secs_attributes();
-        writeln!(f, "eax: {:#02x?}, ebx: 0, ecx: {:#02x?}, edx: 0", eax, ecx)?;
+        write!(f, "eax: {:#02x?}, ebx: 0, ecx: {:#02x?}, edx: 0", eax, ecx)?;
 
         for (idx, SgxSectionInfo::Epc(epc_section)) in sgx_info.iter().enumerate() {
-            writeln!(f, "Sub-leaf {} (ECX={})", idx + 2, idx + 2)?;
+            writeln!(f, "\nSub-leaf {} (ECX={})", idx + 2, idx + 2)?;
             writeln!(
                 f,
                 "EPC (Enclave Page Cache) section:\n{:#02x?}",
@@ -122,7 +122,7 @@ impl fmt::Debug for SgxCpuInfo {
                 "physical base address: {:#02x?}",
                 epc_section.physical_base()
             )?;
-            writeln!(
+            write!(
                 f,
                 "size of EPC section in Processor Reserved Memory: {} MB",
                 epc_section.size() / 1_048_576
