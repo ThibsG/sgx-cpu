@@ -42,11 +42,7 @@ impl fmt::Display for SgxCpuInfo {
             feature_info.family_id(),
             feature_info.extended_family_id()
         )?;
-        writeln!(
-            f,
-            "{}  SMX support",
-            Emoji(&emoji(feature_info.has_smx()), "")
-        )?;
+        writeln!(f, "{}  SMX support", &emoji(feature_info.has_smx()))?;
 
         writeln!(f, "\n# Intel SGX capabilities")?;
         let extended_features = self
@@ -56,24 +52,16 @@ impl fmt::Display for SgxCpuInfo {
         writeln!(
             f,
             "{}  SGX availability",
-            Emoji(&emoji(extended_features.has_sgx()), "")
+            &emoji(extended_features.has_sgx())
         )?;
         writeln!(
             f,
             "{}  SGX FLC (Flexible Launch Control)",
-            Emoji(&emoji(extended_features.has_sgx_lc()), "")
+            &emoji(extended_features.has_sgx_lc())
         )?;
         let sgx_info = self.0.get_sgx_info().expect("Cannot get SGX information");
-        writeln!(
-            f,
-            "{}  SGX 1 support",
-            Emoji(&emoji(sgx_info.has_sgx1()), "")
-        )?;
-        write!(
-            f,
-            "{}  SGX 2 support",
-            Emoji(&emoji(sgx_info.has_sgx2()), "")
-        )?;
+        writeln!(f, "{}  SGX 1 support", &emoji(sgx_info.has_sgx1()))?;
+        write!(f, "{}  SGX 2 support", &emoji(sgx_info.has_sgx2()))?;
 
         // FLC disclaimer
         if !extended_features.has_sgx_lc() {
@@ -100,10 +88,11 @@ impl fmt::Display for SgxCpuInfo {
 
 fn emoji(b: bool) -> String {
     if b {
-        "✅".to_owned()
+        Emoji("✅", "")
     } else {
-        "❌".to_owned()
+        Emoji("❌", "")
     }
+    .to_string()
 }
 
 impl fmt::Debug for SgxCpuInfo {
